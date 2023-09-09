@@ -1,6 +1,6 @@
 # template for data processing plugin
 x-data-processing-plugin: &data-processing-plugin
-  image: ghcr.io/cops-lab/data-processing:0.0.16-beta
+  image: ghcr.io/fasten-project/data-processing:0.0.16
   restart: "unless-stopped"
   depends_on: [ "kafka", "metadata-db" ]
   environment:
@@ -57,7 +57,7 @@ services:
 
   easy-index:
     #profiles: ["disabled"]
-    image: ghcr.io/cops-lab/maven-easy-index:0.0.2-beta
+    image: ghcr.io/cops-lab/maven-easy-index:0.0.2
     restart: "unless-stopped"
     volumes: [
       "./caches/easy-index/:/cache"
