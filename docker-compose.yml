@@ -1,6 +1,6 @@
 # template for data processing plugin
 x-data-processing-plugin: &data-processing-plugin
-  image: ghcr.io/fasten-project/data-processing:0.0.16
+  image: ghcr.io/fasten-project/data-processing:0.0.17
   restart: "unless-stopped"
   depends_on: [ "kafka", "metadata-db" ]
   environment:
@@ -11,7 +11,8 @@ services:
   ## INFRASTRUCTURE
 
   kafka:
-    image: docker.io/bitnami/kafka:3.5
+    image: docker.io/bitnami/kafka:3.5.1
+    restart: unless-stopped
     ports:
       - 9092:9092
     volumes: [
@@ -32,6 +33,7 @@ services:
       - KAFKA_CFG_NUM_PARTITIONS=10
 
   kafdrop:
+    #profiles: ["disabled"]
     image: obsidiandynamics/kafdrop
     restart: "unless-stopped"
     ports:
@@ -52,7 +54,7 @@ services:
     volumes: [
       "./volumes/metadata-db/data:/var/lib/postgresql/data"
     ]
-  
+
   ## FASTEN SERVICES
 
   easy-index:
@@ -63,9 +65,9 @@ services:
       "./caches/easy-index/:/cache"
     ]
 
-  maven-crawler: 
+  maven-crawler:
     <<: *data-processing-plugin
-    profiles: ["disabled"]
+      #profiles: ["disabled"]
     volumes: [
       "./volumes/:/data/"
     ]
@@ -81,7 +83,7 @@ services:
       "--db.user", "${DB_USER}"
     ]
 
-  pom-analyzer:
+  pom-analyzer1:
     <<: *data-processing-plugin
     #profiles: ["disabled"]
     volumes: [
@@ -98,9 +100,43 @@ services:
       "--db.user", "${DB_USER}"
     ]
 
-  dep-graph-resolver:
+  pom-analyzer2:
     <<: *data-processing-plugin
     #profiles: ["disabled"]
+    volumes: [
+      "./caches/.m2/:/root/.m2",
+      "./volumes/:/data/"
+    ]
+    command: [
+      "--run", "eu.f4sten.pomanalyzer.Main",
+      "--instanceId", "pa2",
+      # default values:
+      "--baseDir", "/data",
+      "--kafka.url", "${KAFKA_URL}",
+      "--db.url", "${DB_URL}",
+      "--db.user", "${DB_USER}"
+    ]
+
+  pom-analyzer3:
+    <<: *data-processing-plugin
+    #profiles: ["disabled"]
+    volumes: [
+      "./caches/.m2/:/root/.m2",
+      "./volumes/:/data/"
+    ]
+    command: [
+      "--run", "eu.f4sten.pomanalyzer.Main",
+      "--instanceId", "pa3",
+      # default values:
+      "--baseDir", "/data",
+      "--kafka.url", "${KAFKA_URL}",
+      "--db.url", "${DB_URL}",
+      "--db.user", "${DB_USER}"
+    ]
+
+  dep-graph-resolver:
+    <<: *data-processing-plugin
+    profiles: ["disabled"]
     volumes: [
       "./volumes/:/data/"
     ]
@@ -113,3 +149,4 @@ services:
     ]
     ports:
       - "18081:8080"
+
