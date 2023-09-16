@@ -1,6 +1,6 @@
 # template for data processing plugin
 x-data-processing-plugin: &data-processing-plugin
-  image: ghcr.io/fasten-project/data-processing:0.0.17
+  image: ghcr.io/fasten-project/data-processing:0.0.18
   restart: "unless-stopped"
   depends_on: [ "kafka", "metadata-db" ]
   environment:
@@ -29,8 +29,13 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-      # Custom
+      # Custom (start with KAFKA_CFG_)
       - KAFKA_CFG_NUM_PARTITIONS=10
+      - KAFKA_CFG_GROUP_CONSUMER_MAX_SESSION_TIMEOUT_MS=1800000
+      - KAFKA_CFG_GROUP_CONSUMER_SESSION_TIMEOUT_MS=1800000
+      - KAFKA_CFG_GROUP_CONSUMER_MAX_POLL_INTERVAL_MS=900000
+        #- KAFKA_CFG_GROUP_CONSUMER_MAX_HEARTBEAT_INTERVAL_MS=600000
+        #- KAFKA_CFG_GROUP_CONSUMER_HEARTBEAT_INTERVAL_MS=600000
 
   kafdrop:
     #profiles: ["disabled"]
@@ -119,7 +124,7 @@ services:
 
   pom-analyzer3:
     <<: *data-processing-plugin
-    #profiles: ["disabled"]
+      #profiles: ["disabled"]
     volumes: [
       "./caches/.m2/:/root/.m2",
       "./volumes/:/data/"
@@ -127,6 +132,57 @@ services:
     command: [
       "--run", "eu.f4sten.pomanalyzer.Main",
       "--instanceId", "pa3",
+      # default values:
+      "--baseDir", "/data",
+      "--kafka.url", "${KAFKA_URL}",
+      "--db.url", "${DB_URL}",
+      "--db.user", "${DB_USER}"
+    ]
+
+  pom-analyzer4:
+    <<: *data-processing-plugin
+    profiles: ["disabled"]
+    volumes: [
+      "./caches/.m2/:/root/.m2",
+      "./volumes/:/data/"
+    ]
+    command: [
+      "--run", "eu.f4sten.pomanalyzer.Main",
+      "--instanceId", "pa4",
+      # default values:
+      "--baseDir", "/data",
+      "--kafka.url", "${KAFKA_URL}",
+      "--db.url", "${DB_URL}",
+      "--db.user", "${DB_USER}"
+    ]
+
+  pom-analyzer5:
+    <<: *data-processing-plugin
+    profiles: ["disabled"]
+    volumes: [
+      "./caches/.m2/:/root/.m2",
+      "./volumes/:/data/"
+    ]
+    command: [
+      "--run", "eu.f4sten.pomanalyzer.Main",
+      "--instanceId", "pa5",
+      # default values:
+      "--baseDir", "/data",
+      "--kafka.url", "${KAFKA_URL}",
+      "--db.url", "${DB_URL}",
+      "--db.user", "${DB_USER}"
+    ]
+
+  pom-analyzer6:
+    <<: *data-processing-plugin
+    profiles: ["disabled"]
+    volumes: [
+      "./caches/.m2/:/root/.m2",
+      "./volumes/:/data/"
+    ]
+    command: [
+      "--run", "eu.f4sten.pomanalyzer.Main",
+      "--instanceId", "pa6",
       # default values:
       "--baseDir", "/data",
       "--kafka.url", "${KAFKA_URL}",
