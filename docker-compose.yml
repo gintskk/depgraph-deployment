@@ -64,6 +64,17 @@ services:
       "./volumes/metadata-db/data:/var/lib/postgresql/data"
     ]
 
+  nginx:
+    image: nginx
+    restart: "unless-stopped"
+    ports:
+      - 18080:80
+    volumes: [
+      "./nginx/html:/data/html",
+      "./nginx/nginx.conf:/etc/nginx/nginx.conf",
+      "./caches/.m2/repository:/data/maven2/"
+    ]
+
   ## FASTEN SERVICES
 
   easy-index:
