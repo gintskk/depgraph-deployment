@@ -40,6 +40,8 @@ services:
       - KAFKA_CFG_GROUP_CONSUMER_HEARTBEAT_INTERVAL_MS=600000
       # required to avoid message deletion
       - KAFKA_CFG_LOG_RETENTION_HOURS=-1
+      # required to delay the reset of offsets for consumer group (no -1 option)
+      - KAFKA_CFG_OFFSETS_RETENTION_MINUTES=2147483647
 
   kafdrop:
     #profiles: ["disabled"]
