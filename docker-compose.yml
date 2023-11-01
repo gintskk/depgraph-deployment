@@ -157,6 +157,40 @@ services:
       "--dir.ingestiondb", "${CONT_INGESTIONDB}"
     ]
 
+  downloader4:
+    <<: *data-processing-plugin
+    #profiles: ["disabled"]
+    command: [
+      "--run", "dev.c0ps.mx.downloader.Main",
+      "--instanceId", "d4",
+      #
+      "--logLevel", "${LOG_LEVEL}",
+      "--kafka.url", "${KAFKA_URL}",
+      "--exec.delayMS", "${EXEC_DELAY_MS}",
+      #
+      "--dir.base", "${CONT_BASE}",
+      "--dir.completion", "${CONT_COMPLETION}",
+      "--dir.lanes", "${CONT_LANES}",
+      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+    ]
+
+  downloader5:
+    <<: *data-processing-plugin
+    #profiles: ["disabled"]
+    command: [
+      "--run", "dev.c0ps.mx.downloader.Main",
+      "--instanceId", "d5",
+      #
+      "--logLevel", "${LOG_LEVEL}",
+      "--kafka.url", "${KAFKA_URL}",
+      "--exec.delayMS", "${EXEC_DELAY_MS}",
+      #
+      "--dir.base", "${CONT_BASE}",
+      "--dir.completion", "${CONT_COMPLETION}",
+      "--dir.lanes", "${CONT_LANES}",
+      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+    ]
+
   pom-analyzer1:
     <<: *data-processing-plugin
     #profiles: ["disabled"]
