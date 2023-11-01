@@ -93,7 +93,7 @@ services:
       "--instanceId", "ic1",
       #
       "--mc.easyIndexUrl", "http://easy-index:8080/",
-      "--mc.firstConsideredIndex", "800", #"323",
+      "--mc.firstConsideredIndex", "323",
       #
       "--logLevel", "${LOG_LEVEL}",
       "--kafka.url", "${KAFKA_URL}",
