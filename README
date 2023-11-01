@@ -1,3 +1,22 @@
 # Depgraph Resolver Deployment
 
 This repository contains a basic Docker compose setup for the required infrastructure to host a Depgraph Resolver.
+
+The processing can be started and stopped with a simple `docker compose up/down -d` (while developing, you might consider using a `--remove-orphans` flag as well).
+When you run the application, two folder will appear in your current working directory, which represent two different *types* of volumes, which
+
+1) The `data` folder will contain the data folders for all services that are running.
+This data is derived and can be regenerated. For simplicity, several folders are merged into a single subfolder `progress`, but a production deployment should split this up into multiple folders to make it easy to remove (and recompute) temporary results for individual services.
+2) The `caches` folder contains original data that is downloaded from the internet, like the maven index files or the local .m2 folder.
+This folder can become big, but it will never change and re-downloading the same files over and over would be a waste, so it should be kept locally.
+
+To regenerate all data for whatever reason, just remove the `data` folder and restart the docker compose setup.
+
+
+How to connect?
+
+
+TODO: Extract names of profiles
+TODO: release beta versions
+TODO: start deployment on goteborg
+TODO: ingest maven indices 1-322
