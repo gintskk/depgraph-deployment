@@ -8,7 +8,7 @@ chgrp $GRP_NAME caches
 chmod g+s caches
 
 mkdir -p caches/easy-index
-mkdir -p caches/ingestion
+mkdir -p caches/results
 mkdir -p caches/m2/repository
 
 rm data -Rf

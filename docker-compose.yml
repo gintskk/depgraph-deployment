@@ -7,7 +7,7 @@ x-data-processing-plugin: &data-processing-plugin
     "${HOST_BASE}:${CONT_BASE}",
     "${HOST_COMPLETION}:${CONT_COMPLETION}",
     "${HOST_LANES}:${CONT_LANES}",
-    "${HOST_INGESTIONDB}:${CONT_INGESTIONDB}",
+    "${HOST_RESULTS}:${CONT_RESULTS}",
     # default values suffice for .m2
     "${HOST_M2}:/root/.m2/"
     # MVN_HOME is container specific and does not need mapping
@@ -102,7 +102,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
     depends_on: [ "kafka", "easy-index" ]
 
@@ -120,7 +120,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   downloader2:
@@ -137,7 +137,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   downloader3:
@@ -154,7 +154,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   downloader4:
@@ -171,7 +171,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   downloader5:
@@ -188,7 +188,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   downloader6:
@@ -205,7 +205,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   pom-analyzer1:
@@ -222,7 +222,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   pom-analyzer2:
@@ -239,7 +239,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
 
   depgraph:
@@ -256,7 +256,7 @@ services:
       "--dir.base", "${CONT_BASE}",
       "--dir.completion", "${CONT_COMPLETION}",
       "--dir.lanes", "${CONT_LANES}",
-      "--dir.ingestiondb", "${CONT_INGESTIONDB}"
+      "--dir.results", "${CONT_RESULTS}"
     ]
     ports:
       - "18081:8080"
