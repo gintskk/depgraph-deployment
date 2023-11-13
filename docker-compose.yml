@@ -1,6 +1,6 @@
 # template for data processing plugin
 x-data-processing-plugin: &data-processing-plugin
-  image: ghcr.io/cops-lab/maven-explorer:0.1.1
+  image: ghcr.io/cops-lab/maven-explorer:0.1.2
   restart: "unless-stopped"
   depends_on: [ "kafka" ]
   volumes: [
