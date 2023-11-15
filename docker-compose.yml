@@ -77,7 +77,7 @@ services:
 
   easy-index:
     #profiles: ["disabled"]
-    image: ghcr.io/cops-lab/maven-easy-index:0.0.8
+    image: ghcr.io/cops-lab/maven-easy-index:0.0.9
     restart: "unless-stopped"
     ports:
       - 1234:8080
