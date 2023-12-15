@@ -18,7 +18,7 @@ chgrp $GRP_NAME data
 chmod g+s data
 
 # make sure that ownership is inherited (or it will be set to root:root by docker)
-mkdir -p data/baseDir
+mkdir -p data/baseDir/mvn_depgraph
 mkdir -p data/progress
 
 # bitnami/kafka runs rootless with user 1001
