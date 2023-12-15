@@ -19,7 +19,7 @@ services:
   ## INFRASTRUCTURE
 
   kafka:
-    image: docker.io/bitnami/kafka:3.6.0
+    image: docker.io/bitnami/kafka:3.6.1
     restart: unless-stopped
     ports:
       - 19092:19092
