@@ -11,7 +11,7 @@ mkdir -p caches/easy-index
 mkdir -p caches/results
 mkdir -p caches/m2/repository
 
-rm data -Rf
+#rm data -Rf
 
 mkdir data
 chgrp $GRP_NAME data
