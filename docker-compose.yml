@@ -50,8 +50,6 @@ services:
       - KAFKA_CFG_LOG_RETENTION_HOURS=-1
       # required to delay the reset of offsets for consumer group (no -1 option)
       - KAFKA_CFG_OFFSETS_RETENTION_MINUTES=2147483647
-    networks:
-      - maven-explorer-network
 
   kafdrop:
     #profiles: ["disabled"]
@@ -63,8 +61,6 @@ services:
       KAFKA_BROKERCONNECT: "kafka:9092"
     depends_on:
       - kafka
-    networks:
-      - maven-explorer-network
 
   nginx:
     image: nginx
@@ -76,8 +72,6 @@ services:
       "${HOST_NGINX}/nginx.conf:/etc/nginx/nginx.conf",
       "${HOST_M2}:/root/.m2/",
     ]
-    networks:
-      - maven-explorer-network
 
   ## FASTEN SERVICES
 
@@ -90,8 +84,6 @@ services:
     volumes: [
       "${HOST_EASY_INDEX}:/cache/",
     ]
-    networks:
-      - maven-explorer-network
 
   index-crawler:
     <<: *data-processing-plugin
@@ -113,8 +105,6 @@ services:
       "--dir.results", "${CONT_RESULTS}"
     ]
     depends_on: [ "kafka", "easy-index" ]
-    networks:
-      - maven-explorer-network
 
   downloader1:
     <<: *data-processing-plugin
@@ -132,8 +122,6 @@ services:
       "--dir.lanes", "${CONT_LANES}",
       "--dir.results", "${CONT_RESULTS}"
     ]
-    networks:
-      - maven-explorer-network
 #
 #  downloader2:
 #    <<: *data-processing-plugin
@@ -151,8 +139,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 
 #  downloader3:
 #    <<: *data-processing-plugin
@@ -170,8 +156,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 #
 #  downloader4:
 #    <<: *data-processing-plugin
@@ -189,8 +173,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 #
 #  downloader5:
 #    <<: *data-processing-plugin
@@ -227,8 +209,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 
 #  pom-analyzer1:
 #    <<: *data-processing-plugin
@@ -246,8 +226,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 
 #  pom-analyzer2:
 #    <<: *data-processing-plugin
@@ -265,8 +243,6 @@ services:
 #      "--dir.lanes", "${CONT_LANES}",
 #      "--dir.results", "${CONT_RESULTS}"
 #    ]
-#    networks:
-#      - maven-explorer-network
 
 #  depgraph:
 #    <<: *data-processing-plugin
@@ -286,10 +262,7 @@ services:
 #    ]
 #    ports:
 #      - "18081:8080"
-#    networks:
-#      - maven-explorer-network
 
 networks:
-  maven-explorer-network:
-    driver: bridge
-    name: maven-explorer-network
+  default:
+    attachable: true
